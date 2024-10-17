@@ -12,7 +12,7 @@ def fahrenheit_to_celsius(fahrenheit):
 if "history" not in st.session_state:
     st.session_state["history"] = []
 
-# Streamlit app styling
+# Streamlit app styling with animations and hover effects
 st.markdown(
     """
     <style>
@@ -22,7 +22,7 @@ st.markdown(
         background-size: cover;
         background-position: center;
     }
-    /* Main title styling */
+    /* Main title styling with animation */
     .main-title {
         font-size: 36px;
         color: #2E86C1;
@@ -30,26 +30,45 @@ st.markdown(
         font-weight: bold;
         margin-bottom: 20px;
         text-shadow: 2px 2px #F0F3F4;
+        animation: pulse 2s infinite;
     }
-    /* Button styling */
+    /* Pulse animation */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    /* Button styling with hover effects */
     .convert-button, .clear-button {
         width: 100%;
-        height: 40px;
+        height: 45px;
         font-size: 18px;
         font-weight: bold;
-        border-radius: 5px;
+        border-radius: 8px;
         color: white;
+        transition: transform 0.2s ease;
     }
     .convert-button {
         background-color: #4CAF50;
     }
+    .convert-button:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
     .clear-button {
         background-color: #e74c3c;
+    }
+    .clear-button:hover {
+        background-color: #c0392b;
+        transform: scale(1.05);
     }
     /* Conversion history styling */
     .history-entry {
         color: #FFFFFF;
         font-weight: 500;
+        padding: 4px;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.5);
     }
     </style>
     """,
@@ -57,7 +76,7 @@ st.markdown(
 )
 
 # Main title
-st.markdown('<p class="main-title">🌡️ Temperature Converter</p>', unsafe_allow_html=True)
+st.markdown('<p class="main-title">🌡️ Interactive Temperature Converter</p>', unsafe_allow_html=True)
 
 # Layout: columns for input and output
 col1, col2 = st.columns(2)
@@ -68,14 +87,14 @@ with col1:
 
     if conversion_type == "Celsius to Fahrenheit":
         celsius = st.number_input("Enter temperature in Celsius:", format="%.2f")
-        if st.button("Convert", key="convert1", help="Convert Celsius to Fahrenheit"):
+        if st.button("Convert", key="convert1", help="Convert Celsius to Fahrenheit", css_class="convert-button"):
             fahrenheit = celsius_to_fahrenheit(celsius)
             st.session_state["history"].append(f"{celsius}°C = {fahrenheit:.2f}°F")
             st.success(f"{celsius}°C is equal to {fahrenheit:.2f}°F")
             
     elif conversion_type == "Fahrenheit to Celsius":
         fahrenheit = st.number_input("Enter temperature in Fahrenheit:", format="%.2f")
-        if st.button("Convert", key="convert2", help="Convert Fahrenheit to Celsius"):
+        if st.button("Convert", key="convert2", help="Convert Fahrenheit to Celsius", css_class="convert-button"):
             celsius = fahrenheit_to_celsius(fahrenheit)
             st.session_state["history"].append(f"{fahrenheit}°F = {celsius:.2f}°C")
             st.success(f"{fahrenheit}°F is equal to {celsius:.2f}°C")
@@ -89,7 +108,7 @@ with col2:
     else:
         st.write("No conversions yet.")
 
-# Clear history button
-if st.button("Clear History", key="clear", help="Clear conversion history"):
+# Clear history button with hover effect
+if st.button("Clear History", key="clear", help="Clear conversion history", css_class="clear-button"):
     st.session_state["history"].clear()
     st.info("History cleared.")
