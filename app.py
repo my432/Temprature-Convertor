@@ -12,7 +12,7 @@ def fahrenheit_to_celsius(fahrenheit):
 if "history" not in st.session_state:
     st.session_state["history"] = []
 
-# Streamlit app styling with animations and hover effects
+# Streamlit app styling with animations and interactivity
 st.markdown(
     """
     <style>
@@ -38,7 +38,7 @@ st.markdown(
         50% { transform: scale(1.05); }
         100% { transform: scale(1); }
     }
-    /* Button styling with hover effects */
+    /* Button styling with hover and transition effects */
     .convert-button, .clear-button {
         width: 100%;
         height: 45px;
@@ -46,7 +46,7 @@ st.markdown(
         font-weight: bold;
         border-radius: 8px;
         color: white;
-        transition: transform 0.2s ease;
+        transition: transform 0.2s ease, background-color 0.2s ease;
     }
     .convert-button {
         background-color: #4CAF50;
@@ -62,13 +62,17 @@ st.markdown(
         background-color: #c0392b;
         transform: scale(1.05);
     }
-    /* Conversion history styling */
+    /* Conversion history styling with hover effect */
     .history-entry {
         color: #FFFFFF;
         font-weight: 500;
         padding: 4px;
         border-radius: 5px;
         background-color: rgba(0, 0, 0, 0.5);
+        transition: background-color 0.2s ease;
+    }
+    .history-entry:hover {
+        background-color: rgba(0, 0, 0, 0.8);
     }
     </style>
     """,
