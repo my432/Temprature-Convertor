@@ -39,7 +39,7 @@ st.markdown(
         100% { transform: scale(1); }
     }
     /* Button styling with hover and transition effects */
-    .convert-button, .clear-button {
+    div.stButton > button {
         width: 100%;
         height: 45px;
         font-size: 18px;
@@ -48,17 +48,17 @@ st.markdown(
         color: white;
         transition: transform 0.2s ease, background-color 0.2s ease;
     }
-    .convert-button {
+    div.stButton > button.convert-button {
         background-color: #4CAF50;
     }
-    .convert-button:hover {
+    div.stButton > button.convert-button:hover {
         background-color: #45a049;
         transform: scale(1.05);
     }
-    .clear-button {
+    div.stButton > button.clear-button {
         background-color: #e74c3c;
     }
-    .clear-button:hover {
+    div.stButton > button.clear-button:hover {
         background-color: #c0392b;
         transform: scale(1.05);
     }
@@ -91,14 +91,14 @@ with col1:
 
     if conversion_type == "Celsius to Fahrenheit":
         celsius = st.number_input("Enter temperature in Celsius:", format="%.2f")
-        if st.button("Convert", key="convert1", help="Convert Celsius to Fahrenheit", css_class="convert-button"):
+        if st.button("Convert", key="convert1", help="Convert Celsius to Fahrenheit"):
             fahrenheit = celsius_to_fahrenheit(celsius)
             st.session_state["history"].append(f"{celsius}°C = {fahrenheit:.2f}°F")
             st.success(f"{celsius}°C is equal to {fahrenheit:.2f}°F")
             
     elif conversion_type == "Fahrenheit to Celsius":
         fahrenheit = st.number_input("Enter temperature in Fahrenheit:", format="%.2f")
-        if st.button("Convert", key="convert2", help="Convert Fahrenheit to Celsius", css_class="convert-button"):
+        if st.button("Convert", key="convert2", help="Convert Fahrenheit to Celsius"):
             celsius = fahrenheit_to_celsius(fahrenheit)
             st.session_state["history"].append(f"{fahrenheit}°F = {celsius:.2f}°C")
             st.success(f"{fahrenheit}°F is equal to {celsius:.2f}°C")
@@ -113,6 +113,6 @@ with col2:
         st.write("No conversions yet.")
 
 # Clear history button with hover effect
-if st.button("Clear History", key="clear", help="Clear conversion history", css_class="clear-button"):
+if st.button("Clear History", key="clear", help="Clear conversion history"):
     st.session_state["history"].clear()
     st.info("History cleared.")
